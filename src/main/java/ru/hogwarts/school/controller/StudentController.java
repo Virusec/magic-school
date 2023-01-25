@@ -59,4 +59,13 @@ public class StudentController {
         }
         return ResponseEntity.ok(studentService.getStudentsByAge(age));
     }
+
+    @GetMapping("filter/{min}/{max}")
+    public ResponseEntity<Collection<Student>> getStudentsBetweenAge(@PathVariable int min, @PathVariable int max) {
+        Collection<Student> existStudents = studentService.getStudentsByAgeBetween(min, max);
+        if (existStudents == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studentService.getStudentsByAgeBetween(min, max));
+    }
 }
