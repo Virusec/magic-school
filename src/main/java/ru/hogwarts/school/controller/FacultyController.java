@@ -1,6 +1,5 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
@@ -27,7 +26,7 @@ public class FacultyController {
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(faculty);
     }
@@ -36,7 +35,7 @@ public class FacultyController {
     public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.updateFaculty(faculty);
         if (foundFaculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundFaculty);
     }
@@ -73,21 +72,12 @@ public class FacultyController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("student/{id}")
-    public ResponseEntity<Faculty> getFacultyByStudentsId(@PathVariable Long id) {
-        Faculty findFaculty = facultyService.getFacultyByStudentsId(id);
-        if (findFaculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(findFaculty);
-    }
-
-    @GetMapping("students/{id}")
-    public ResponseEntity<Collection<Student>> getStudentsByFacultyId(@PathVariable Long id) {
-        Collection<Student> findFacultyStudents = facultyService.getStudentsByFaculty(id);
-        if (findFacultyStudents == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(findFacultyStudents);
-    }
+//    @GetMapping("students/{id}")
+//    public ResponseEntity<Collection<Student>> getStudentsByFacultyId(@PathVariable Long id) {
+//        Collection<Student> findFacultyStudents = facultyService.getStudentsByFaculty(id);
+//        if (findFacultyStudents == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(findFacultyStudents);
+//    }
 }
