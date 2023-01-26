@@ -51,7 +51,8 @@ public class FacultyService {
     }
 
 
-//    public Collection<Student> getStudentsByFaculty(Long id) {
-//        return studentRepository.findStudentsByFacultyId(id);
-//    }
+    public Collection<Student> getStudentsByFaculty(Long id) {
+        return facultyRepository.findById(id).map(Faculty::getStudents).orElse(null);
+    }
+
 }

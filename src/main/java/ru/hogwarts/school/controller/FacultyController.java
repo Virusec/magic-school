@@ -72,12 +72,12 @@ public class FacultyController {
         return ResponseEntity.notFound().build();
     }
 
-//    @GetMapping("students/{id}")
-//    public ResponseEntity<Collection<Student>> getStudentsByFacultyId(@PathVariable Long id) {
-//        Collection<Student> findFacultyStudents = facultyService.getStudentsByFaculty(id);
-//        if (findFacultyStudents == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(findFacultyStudents);
-//    }
+    @GetMapping("students/{id}")
+    public ResponseEntity<Collection<Student>> getStudentsByFacultyId(@PathVariable Long id) {
+        Collection<Student> findFacultyStudents = facultyService.getStudentsByFaculty(id);
+        if (findFacultyStudents == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(findFacultyStudents);
+    }
 }
