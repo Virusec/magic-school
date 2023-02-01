@@ -10,7 +10,9 @@ import java.util.Objects;
 public class Faculty {
     @Id
     @GeneratedValue
+//            (strategy = GenerationType.IDENTITY) // для данной сущности своя последовательность генерации id, ставить после сброса БД или на пустую
     private Long id;
+
     private String name;
     private String color;
     @OneToMany(mappedBy = "faculty")
@@ -50,7 +52,8 @@ public class Faculty {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Faculty faculty = (Faculty) o;
-        return Objects.equals(id, faculty.id) && Objects.equals(name, faculty.name) && Objects.equals(color, faculty.color) && Objects.equals(students, faculty.students);
+        return Objects.equals(id, faculty.id) && Objects.equals(name, faculty.name)
+                && Objects.equals(color, faculty.color) && Objects.equals(students, faculty.students);
     }
 
     @Override
