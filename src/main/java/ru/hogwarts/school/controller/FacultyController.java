@@ -18,8 +18,8 @@ public class FacultyController {
     }
 
     @PostMapping
-    public Faculty createFaculty(@RequestBody Faculty faculty) {
-        return facultyService.createFaculty(faculty);
+    public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty faculty) {
+        return ResponseEntity.ok(facultyService.createFaculty(faculty));
     }
 
     @GetMapping("{id}")
@@ -57,7 +57,7 @@ public class FacultyController {
         if (existingFaculties == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(facultyService.getFacultiesByColor(color));
+        return ResponseEntity.ok(existingFaculties);
     }
 
     @GetMapping("filter")
