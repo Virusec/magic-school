@@ -50,6 +50,8 @@ public class FacultyControllerWithMockTest {
         faculty.setId(id);
         faculty.setName(name);
         faculty.setColor(color);
+        faculty.setStudents(List.of());
+
     }
 
     @Test
@@ -138,12 +140,6 @@ public class FacultyControllerWithMockTest {
 
     @Test
     public void readByNameOrColor() throws Exception {
-        Faculty faculty1 = new Faculty();
-        faculty1.setId(5L);
-        faculty1.setName("mmm");
-        faculty1.setColor("lll");
-        List<Faculty> facultyList1 = List.of(faculty, faculty1);
-
         when(facultyRepository.findByColorIgnoreCase(any(String.class))).thenReturn(faculty);
 //        when(facultyRepository.findByNameIgnoreCase(name)).thenReturn(faculty);
 
@@ -153,7 +149,7 @@ public class FacultyControllerWithMockTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(facultyList1)));
+                .andExpect(content().json(mapper.writeValueAsString(faculty)));
     }
 
     @Test

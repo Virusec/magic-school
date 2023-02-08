@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
@@ -52,6 +53,8 @@ public class StudentControllerWithMockTest {
         student.setId(id);
         student.setName(name);
         student.setAge(age);
+
+        student.setFaculty(new Faculty());
     }
 
     @Test
@@ -152,17 +155,17 @@ public class StudentControllerWithMockTest {
                 .andExpect(content().json(mapper.writeValueAsString(studentList)));
     }
 
-//    @Test
-//    public void readFacultyByStudent() throws Exception {
-//        when(studentRepository.findById(id)).thenReturn(Optional.of(student));
-//
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .get("/student/faculty/" + id)
-//                        .content(id.toString())
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    public void readFacultyByStudent() throws Exception {
+        when(studentRepository.findById(id)).thenReturn(Optional.of(student));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/faculty/" + id)
+                        .content(id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
 
 
