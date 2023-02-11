@@ -21,7 +21,6 @@ public class StudentService {
 
     public Student findStudent(long id) {
         return studentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Student not found"));
-//        orElse(null);
     }
 
     public Student updateStudent(Student student) {

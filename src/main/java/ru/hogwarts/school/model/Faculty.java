@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Faculty {
     @Id
     @GeneratedValue
-//            (strategy = GenerationType.IDENTITY) // для данной сущности своя последовательность генерации id, ставить после сброса БД или на пустую
+//            (strategy = GenerationType.IDENTITY) // для данной сущности будет своя последовательность генерации id, ставить после сброса БД или на пустую
     private Long id;
 
     private String name;
@@ -46,6 +46,11 @@ public class Faculty {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
 
     @Override
     public boolean equals(Object o) {
