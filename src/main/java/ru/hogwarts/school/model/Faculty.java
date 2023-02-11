@@ -9,8 +9,7 @@ import java.util.Objects;
 @Entity
 public class Faculty {
     @Id
-    @GeneratedValue
-//            (strategy = GenerationType.IDENTITY) // для данной сущности будет своя последовательность генерации id, ставить после сброса БД или на пустую
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // для данной сущности будет своя последовательность генерации id, ставить после сброса БД или на пустую
     private Long id;
 
     private String name;
