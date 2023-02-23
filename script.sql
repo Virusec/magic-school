@@ -14,7 +14,7 @@ where name like '%n%';
 
 select *
 from student
-where age < id;
+where age > id;
 
 select id, name, age
 from student
