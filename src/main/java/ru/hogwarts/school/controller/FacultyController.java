@@ -24,11 +24,12 @@ public class FacultyController {
 
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long id) {
-        Faculty faculty = facultyService.findFaculty(id);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(faculty);
+//        Faculty faculty = facultyService.findFaculty(id);
+//        if (faculty == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(faculty);
+        return ResponseEntity.ok(facultyService.findFaculty(id));
     }
 
     @PutMapping

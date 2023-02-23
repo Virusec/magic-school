@@ -7,12 +7,12 @@ import java.util.Objects;
 @Entity
 public class Avatar {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String filePath;
     private long fileSize;
     private String mediaType;
-    //    @Lob
+//    @Lob
     private byte[] data;
     @OneToOne
     private Student student;

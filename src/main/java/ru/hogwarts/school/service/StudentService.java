@@ -49,4 +49,16 @@ public class StudentService {
     public Faculty getFacultyByStudentId(long id) {
         return studentRepository.findById(id).map(Student::getFaculty).orElse(null);
     }
+
+    public Integer getCountOfStudents() {
+        return studentRepository.getCountOfStudents();
+    }
+
+    public Double getAverageAgeOfStudents() {
+        return studentRepository.getAverageAgeOfStudents();
+    }
+
+    public Collection<Student> get5LastStudent() {
+        return studentRepository.get5LastStudent();
+    }
 }
