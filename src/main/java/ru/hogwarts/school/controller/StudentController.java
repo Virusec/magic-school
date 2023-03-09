@@ -61,7 +61,7 @@ public class StudentController {
         if (existStudents == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(studentService.getStudentsByAge(age));
+        return ResponseEntity.ok(existStudents);
     }
 
     @GetMapping("filter/{min}/{max}")
@@ -70,7 +70,7 @@ public class StudentController {
         if (existStudents == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(studentService.getStudentsByAgeBetween(min, max));
+        return ResponseEntity.ok(existStudents);
     }
 
     @GetMapping("faculty/{id}")
