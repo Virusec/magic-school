@@ -23,7 +23,7 @@ public class StudentService {
     public Student createStudent(Student student) {
         logger.info("Was invoked method for create student");
         Student createdStudent = studentRepository.save(student);
-        logger.debug("Student with id {} has been created", createdStudent.getId());
+        logger.debug("Student with id = {} has been created", createdStudent.getId());
         return createdStudent;
     }
 
@@ -31,11 +31,11 @@ public class StudentService {
         logger.info("Was invoked method for create student");
         return studentRepository.findById(id)
                 .map(student -> {
-                    logger.debug("Student with id {} found", id);
+                    logger.debug("Student with id = {} found", id);
                     return student;
                 })
                 .orElseThrow(() -> {
-                    logger.warn("There is no student with id {}", id);
+                    logger.warn("There is no student with id = {}", id);
                     return new IllegalArgumentException("Student with id = " + id + " not found");
                 });
     }
@@ -44,10 +44,10 @@ public class StudentService {
         logger.info("Was invoked method for update student");
         Long id = student.getId();
         if (studentRepository.existsById(id)) {
-            logger.debug("Student with id = " + id + " has been updated");
+            logger.debug("Student with id = {} has been updated", id);
             return studentRepository.save(student);
         }
-        logger.error("There is no student with id = " + id);
+        logger.error("There is no student with id = {}", id);
         throw new IllegalArgumentException("Student was not updated");
     }
 
@@ -55,9 +55,9 @@ public class StudentService {
         logger.info("Was invoked method for delete student");
         if (studentRepository.existsById(id)) {
             studentRepository.deleteById(id);
-            logger.debug("Student with id = " + id + " has been deleted");
+            logger.debug("Student with id = {} has been deleted", id);
         } else {
-            logger.error("There is no student with id = " + id);
+            logger.error("There is no student with id = {}", id);
             throw new IllegalArgumentException("Student with id = " + id + " not found");
         }
     }
@@ -79,7 +79,7 @@ public class StudentService {
         if (students.isEmpty()) {
             logger.warn("No students found");
         } else {
-            logger.debug("Students by age = " + age + " were displayed");
+            logger.debug("Students by age = {} were displayed", age);
         }
         return students;
     }
@@ -90,7 +90,7 @@ public class StudentService {
         if (students.isEmpty()) {
             logger.warn("No students found");
         } else {
-            logger.debug("Students by age between = " + min + " and = " + max + " were displayed");
+            logger.debug("Students by age between = {} and = {} were displayed", min, max);
         }
         return students;
     }
@@ -100,11 +100,11 @@ public class StudentService {
         return studentRepository.findById(id)
                 .map(student ->
                 {
-                    logger.debug("Faculty by student id = " + id + " found");
+                    logger.debug("Faculty by student id = {} found", id);
                     return student.getFaculty();
                 })
                 .orElseThrow(() -> {
-                    logger.error("There is no student with id = " + id);
+                    logger.error("There is no student with id = {}", id);
                     return new IllegalArgumentException("Student not found");
                 });
     }
@@ -115,7 +115,7 @@ public class StudentService {
         if (countOfStudents.describeConstable().isEmpty()) {
             logger.warn("No students found");
         } else {
-            logger.debug("The number of students is = " + countOfStudents);
+            logger.debug("The number of students is = {}", countOfStudents);
         }
         return countOfStudents;
     }
@@ -126,7 +126,7 @@ public class StudentService {
         if (averageAgeOfStudents.describeConstable().isEmpty()) {
             logger.warn("No students found");
         } else {
-            logger.debug("Average age of students is = " + averageAgeOfStudents);
+            logger.debug("Average age of students is = {}", averageAgeOfStudents);
         }
         return averageAgeOfStudents;
     }

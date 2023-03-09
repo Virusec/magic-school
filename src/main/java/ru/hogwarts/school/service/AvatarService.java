@@ -38,7 +38,7 @@ public class AvatarService {
         logger.info("Was invoked method for upload avatar");
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> {
-                    logger.warn("There is no student with id = " + studentId);
+                    logger.warn("There is no student with id = {}", studentId);
                     throw new IllegalArgumentException("Student with id = " + studentId + " not found");
                 });
         Path filePath = Path
@@ -46,7 +46,7 @@ public class AvatarService {
                         , studentId
                                 + "."
                                 + getExtension(Objects.requireNonNull(avatarFile.getOriginalFilename())));
-        logger.debug("Create path = " + filePath);
+        logger.debug("Create path = {}", filePath);
         Files.createDirectories(filePath.getParent());
         if (Files.exists(filePath)) {
             logger.warn("Avatar file already exists, deleting...");
@@ -79,9 +79,9 @@ public class AvatarService {
     }
 
     private String getExtension(String originalFilename) {
-        logger.debug("Extracting extension from filename: " + originalFilename);
+        logger.debug("Extracting extension from filename: {}", originalFilename);
         String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-        logger.debug("Extracted extension: " + extension);
+        logger.debug("Extracted extension: {}", extension);
         return extension;
     }
 
@@ -101,7 +101,7 @@ public class AvatarService {
     public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize) {
         logger.info("Was invoked method for get all avatars by page");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        logger.debug("Create page requestwith pageNumber: {} and pageSize: {}", pageNumber, pageSize);
+        logger.debug("Create page request with pageNumber: {} and pageSize: {}", pageNumber, pageSize);
         List<Avatar> avatars = avatarRepository.findAll(pageRequest).getContent();
         logger.debug("Found {} avatars", avatars.size());
         return avatars;
