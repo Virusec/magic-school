@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
@@ -13,12 +12,9 @@ import java.util.Collection;
 @RequestMapping("student")
 public class StudentController {
     private final StudentService studentService;
-    private final StudentRepository studentRepository;
 
-    public StudentController(StudentService studentService,
-                             StudentRepository studentRepository) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
-        this.studentRepository = studentRepository;
     }
 
     @PostMapping
@@ -55,8 +51,14 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
+    @GetMapping("/filter/starts-letter/{letter}")
+    public ResponseEntity<Collection<Student>> getStudentsStartsNameWith(@PathVariable String letter) {
+        return ResponseEntity.ok(studentService.findStudentsStartsNameWith(letter));
+    }
+
     @GetMapping("filter/{age}")
     public ResponseEntity<Collection<Student>> getStudentsByAge(@PathVariable int age) {
+
         Collection<Student> existStudents = studentService.getStudentsByAge(age);
         if (existStudents == null) {
             return ResponseEntity.notFound().build();

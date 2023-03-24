@@ -8,9 +8,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FacultyService {
@@ -126,6 +124,46 @@ public class FacultyService {
                     logger.error("There is no faculty with id = {}", id);
                     return new IllegalArgumentException("Faculty with id = " + id + " not found");
                 });
+    }
+
+    public String getLongestNameFaculty() {
+        logger.info("Was invoked method for get the longest faculty name");
+        Optional<Faculty> longestName = facultyRepository.findAll()
+                .stream()
+                .max(Comparator.comparingInt(a -> a.getName().length()));
+        return longestName
+                .map(faculty -> {
+                    String name = faculty.getName();
+                    logger.info("The longest faculty name is {}", name);
+                    return name;
+                })
+                .orElseThrow(() -> {
+                    logger.error("Faculty repository is empty");
+                    throw new NoSuchElementException("Faculty repository is empty");
+                });
+    }
+
+    public List<String> getLongestNameFaculties() {
+        logger.info("Was invoked method for get the longest faculty name");
+        List<Faculty> faculties = facultyRepository.findAll();
+        if (faculties.isEmpty()) {
+            logger.warn("Faculty repository is empty");
+            return Collections.emptyList();
+        }
+        OptionalInt maxLength = faculties.stream()
+                .mapToInt(a -> a.getName().length())
+                .max();
+
+        List<String> longestNames = faculties.stream()
+                .map(Faculty::getName)
+                .filter(name -> name.length() == maxLength.getAsInt())
+                .toList();
+        if (longestNames.size() == 1) {
+            logger.info("The longest faculty name is {}", longestNames.get(0));
+        } else {
+            logger.info("Multiple faculties found with longest name: {}", longestNames);
+        }
+        return longestNames;
     }
 
 }
