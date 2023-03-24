@@ -55,8 +55,14 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
+    @GetMapping("/filter/starts-letter/{letter}")
+    public ResponseEntity<Collection<Student>> getStudentsStartsNameWith(@PathVariable String letter) {
+        return ResponseEntity.ok(studentService.findStudentsStartsNameWith(letter));
+    }
+
     @GetMapping("filter/{age}")
     public ResponseEntity<Collection<Student>> getStudentsByAge(@PathVariable int age) {
+
         Collection<Student> existStudents = studentService.getStudentsByAge(age);
         if (existStudents == null) {
             return ResponseEntity.notFound().build();

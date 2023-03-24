@@ -20,4 +20,8 @@ public class InfoController {
         return ResponseEntity.ok(infoService.getPort());
     }
 
+    @GetMapping("/sum")
+    public ResponseEntity<Long> getSum() {
+        return ResponseEntity.ok(infoService.getSum());
+    }
 }

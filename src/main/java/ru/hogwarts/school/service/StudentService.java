@@ -3,12 +3,15 @@ package ru.hogwarts.school.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.NoStudentsFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -122,7 +125,8 @@ public class StudentService {
 
     public Double getAverageAgeOfStudents() {
         logger.info("Was invoked method for get average age of students");
-        Double averageAgeOfStudents = studentRepository.getAverageAgeOfStudents();
+        Double averageAgeOfStudents = studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge).average().orElseThrow(NoStudentsFoundException::new);
         if (averageAgeOfStudents.describeConstable().isEmpty()) {
             logger.warn("No students found");
         } else {
@@ -140,5 +144,19 @@ public class StudentService {
             logger.debug("Five last students were displayed");
         }
         return lastStudents;
+    }
+
+    public Collection<Student> findStudentsStartsNameWith(String letter) {
+        logger.info("Was invoked method for get students whose name begins with {}", letter);
+        List<Student> collect = studentRepository.findAll().stream()
+                .filter(a -> a.getName().startsWith(letter))
+                .sorted(Comparator.comparing(Student::getName))
+                .collect(Collectors.toList());
+        if (collect.isEmpty()) {
+            logger.warn("No students found");
+        } else {
+            logger.debug("Students whose name begins with {} were shown", letter);
+        }
+        return collect;
     }
 }
