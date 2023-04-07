@@ -98,4 +98,14 @@ public class StudentController {
     public Collection<Student> get5LastStudent() {
         return studentService.get5LastStudent();
     }
+
+    @GetMapping("/thread")
+    public void printNamesIn3Thread() {
+        studentService.printNamesIn3Thread();
+    }
+
+    @GetMapping("/1thread")
+    public void printNamesIn1Thread() {
+        studentService.printNamesIn1Thread();
+    }
 }
