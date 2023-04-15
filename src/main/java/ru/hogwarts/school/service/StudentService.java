@@ -160,65 +160,50 @@ public class StudentService {
         return collect;
     }
 
-    public void printNamesIn3Thread() {
-        printListOfNames();
+    public void printNames() {
+        List<String> list = getNamesList(6);
+        System.out.println(list);
 
-        System.out.println(getNameByIndex(0));
-        System.out.println(getNameByIndex(1));
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
 
         new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + " " + getNameByIndex(2));
-            System.out.println(Thread.currentThread().getName() + " " + getNameByIndex(3));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(2));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(3));
         }).start();
 
         new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + " " + getNameByIndex(4));
-            System.out.println(Thread.currentThread().getName() + " " + getNameByIndex(5));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(4));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(5));
         }).start();
     }
 
-    public void printNamesIn1Thread() {
-        printListOfNames();
+    public void printNamesSynchronized() {
+        List<String> list = getNamesList(6);
+        System.out.println(list);
 
-        printNameByIndex(0);
-        printNameByIndex(1);
+        printName(list.get(0));
+        printName(list.get(1));
 
         new Thread(() -> {
-            printNameByIndex(2);
-            printNameByIndex(3);
+            printName(list.get(2));
+            printName(list.get(3));
         }).start();
 
         new Thread(() -> {
-            printNameByIndex(4);
-            printNameByIndex(5);
+            printName(list.get(4));
+            printName(list.get(5));
         }).start();
     }
 
-    private List<String> getNamesList() {
-        return getAllStudents().stream().map(Student::getName).toList();
-    }
+    int count = 1;
 
-    private void printListOfNames() {
-        System.out.println(getNamesList());
-    }
-
-    private String getNameByIndex(int index) {
-        return getNamesList()
-                .stream()
-                .skip(index)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Index out of bounds"));
-    }
-
-    int count = 0;
-
-    private synchronized void printNameByIndex(int index) {
-        String name = getNamesList()
-                .stream()
-                .skip(index)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Index out of bounds"));
-        System.out.println(count + " " + name);
+    private synchronized void printName(String student) {
+        System.out.println(count + " " + student);
         count++;
+    }
+
+    private List<String> getNamesList(int num) {
+        return getAllStudents().stream().map(Student::getName).limit(num).toList();
     }
 }

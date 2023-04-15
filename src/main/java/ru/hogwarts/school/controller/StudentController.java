@@ -99,13 +99,13 @@ public class StudentController {
         return studentService.get5LastStudent();
     }
 
-    @GetMapping("/thread")
-    public void printNamesIn3Thread() {
-        studentService.printNamesIn3Thread();
+    @GetMapping("/print-names")
+    public void printNames() {
+        studentService.printNames();
     }
 
-    @GetMapping("/1thread")
-    public void printNamesIn1Thread() {
-        studentService.printNamesIn1Thread();
+    @GetMapping("/print-names-Sync")
+    public void printNamesSynchronized() {
+        studentService.printNamesSynchronized();
     }
 }
