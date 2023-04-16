@@ -182,24 +182,22 @@ public class StudentService {
         List<String> list = getNamesList(6);
         System.out.println(list);
 
-        printName(list.get(0));
-        printName(list.get(1));
+        printName(list, 0, 1);
 
         new Thread(() -> {
-            printName(list.get(2));
-            printName(list.get(3));
+            printName(list, 2, 3);
         }).start();
 
         new Thread(() -> {
-            printName(list.get(4));
-            printName(list.get(5));
+            printName(list, 4, 5);
         }).start();
     }
 
     int count = 1;
 
-    private synchronized void printName(String student) {
-        System.out.println(count + " " + student);
+    private synchronized void printName(List<String> list, int... num) {
+        System.out.println(count++ + " " + list.get(num[0]));
+        System.out.println(count + " " + list.get(num[1]));
         count++;
     }
 
