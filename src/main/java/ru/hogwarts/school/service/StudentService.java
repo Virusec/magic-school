@@ -159,4 +159,49 @@ public class StudentService {
         }
         return collect;
     }
+
+    public void printNames() {
+        List<String> list = getNamesList(6);
+        System.out.println(list);
+
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + list.get(2));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(3));
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + list.get(4));
+            System.out.println(Thread.currentThread().getName() + " " + list.get(5));
+        }).start();
+    }
+
+    public void printNamesSynchronized() {
+        List<String> list = getNamesList(6);
+        System.out.println(list);
+
+        printName(list, 0, 1);
+
+        new Thread(() -> {
+            printName(list, 2, 3);
+        }).start();
+
+        new Thread(() -> {
+            printName(list, 4, 5);
+        }).start();
+    }
+
+    int count = 1;
+
+    private synchronized void printName(List<String> list, int... num) {
+        System.out.println(count++ + " " + list.get(num[0]));
+        System.out.println(count + " " + list.get(num[1]));
+        count++;
+    }
+
+    private List<String> getNamesList(int num) {
+        return getAllStudents().stream().map(Student::getName).limit(num).toList();
+    }
 }

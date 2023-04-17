@@ -98,4 +98,14 @@ public class StudentController {
     public Collection<Student> get5LastStudent() {
         return studentService.get5LastStudent();
     }
+
+    @GetMapping("/print-names")
+    public void printNames() {
+        studentService.printNames();
+    }
+
+    @GetMapping("/print-names-Sync")
+    public void printNamesSynchronized() {
+        studentService.printNamesSynchronized();
+    }
 }
