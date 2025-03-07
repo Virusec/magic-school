@@ -146,12 +146,17 @@ public class StudentService {
         return lastStudents;
     }
 
-    public Collection<Student> findStudentsStartsNameWith(String letter) {
+    public Collection<String> findStudentsStartsNameWith(String letter) {
         logger.info("Was invoked method for get students whose name begins with {}", letter);
-        List<Student> collect = studentRepository.findAll().stream()
-                .filter(a -> a.getName().startsWith(letter))
-                .sorted(Comparator.comparing(Student::getName))
+        List<String> collect = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith(letter))
+                .sorted()
                 .collect(Collectors.toList());
+//                .filter(a -> a.getName().startsWith(letter))
+//                .sorted(Comparator.comparing(Student::getName))
+//                .collect(Collectors.toList());
         if (collect.isEmpty()) {
             logger.warn("No students found");
         } else {

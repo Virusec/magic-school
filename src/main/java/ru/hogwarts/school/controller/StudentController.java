@@ -52,7 +52,7 @@ public class StudentController {
     }
 
     @GetMapping("/filter/starts-letter/{letter}")
-    public ResponseEntity<Collection<Student>> getStudentsStartsNameWith(@PathVariable String letter) {
+    public ResponseEntity<Collection<String>> getStudentsStartsNameWith(@PathVariable String letter) {
         return ResponseEntity.ok(studentService.findStudentsStartsNameWith(letter));
     }
 
