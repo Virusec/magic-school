@@ -52,7 +52,7 @@ public class StudentController {
     }
 
     @GetMapping("/filter/starts-letter/{letter}")
-    public ResponseEntity<Collection<Student>> getStudentsStartsNameWith(@PathVariable String letter) {
+    public ResponseEntity<Collection<String>> getStudentsStartsNameWith(@PathVariable String letter) {
         return ResponseEntity.ok(studentService.findStudentsStartsNameWith(letter));
     }
 
@@ -97,5 +97,15 @@ public class StudentController {
     @GetMapping("5-last-student")
     public Collection<Student> get5LastStudent() {
         return studentService.get5LastStudent();
+    }
+
+    @GetMapping("/print-names")
+    public void printNames() {
+        studentService.printNames();
+    }
+
+    @GetMapping("/print-names-Sync")
+    public void printNamesSynchronized() {
+        studentService.printNamesSynchronized();
     }
 }
